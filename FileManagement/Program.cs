@@ -20,12 +20,17 @@ namespace FileManagement
         public static void CopyFilesRecursively(string sourcePath, string destinationPath)
         {
             // Create the destination directory if it doesn't exist
+            // destinationPath might be something like "C:\EndFolder".
+            // If the directory does already exist, this method does nothing, so it's safe to call even if you're not sure whether the directory is there.
             Directory.CreateDirectory(destinationPath);
 
             // Copy all files from the source to the destination directory
+            // file might be something like "C:\StartFolder\textFile1.txt".
             foreach (string file in Directory.GetFiles(sourcePath))
             {
+                // By using Path.GetFileName(file), you get "textFile1.txt"
                 string fileName = Path.GetFileName(file);
+                // and then Path.Combine(destinationPath, fileName) gives you "C:\EndFolder\textFile1.txt".
                 string destinationFile = Path.Combine(destinationPath, fileName);
 
                 // Only copy if the file doesn't already exist in the destination
